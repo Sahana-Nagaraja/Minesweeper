@@ -1,3 +1,4 @@
+//Understands user input from the console
 import java.util.Scanner;
 
 public class ConsoleInputReader {

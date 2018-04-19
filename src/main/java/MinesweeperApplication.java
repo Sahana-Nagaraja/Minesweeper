@@ -13,9 +13,12 @@ public class MinesweeperApplication {
     static void startGame() {
         System.out.print("Enter the minefield layout : ");
         String in = scan.nextLine().toLowerCase().trim();
-        String gridLayout = in.replaceAll("[a-zA-Z]", "x").replace("\"","");
+        displayLayout(in);
+    }
+
+    static void displayLayout(String gridLayout) {
+        gridLayout = gridLayout.replaceAll("[a-zA-Z]", "x").replace("\"","");
         List<String> items = Arrays.asList(gridLayout.split(","));
         for (String item: items)System.out.println(item.toCharArray());
-
     }
 }
