@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class MinesweeperApplication {
 
     private static Scanner scan = new Scanner(System.in);
+    public static int gridSize;
 
     public static void main(String[] args){
         startGame();
@@ -19,6 +20,9 @@ public class MinesweeperApplication {
     static void displayLayout(String gridLayout) {
         gridLayout = gridLayout.replaceAll("[a-zA-Z]", "x").replace("\"","");
         List<String> items = Arrays.asList(gridLayout.split(","));
-        for (String item: items)System.out.println(item.toCharArray());
+        gridSize = items.size();
+        for (String item: items)System.out.println(item);
     }
+
+
 }
