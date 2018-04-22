@@ -8,7 +8,6 @@ public class Grid {
 
     Grid(String gridLayout) {
         int k = 0;
-
         char[] charArr = gridLayout.replace(",", "").replace("\"", "").trim().toCharArray();
         for (int x = 0; x < ROWS; x++) {
             for (int y = 0; y < COLS; y++) {
@@ -32,18 +31,43 @@ public class Grid {
         }
     }
 
-    void replaceCharXWith0(Coordinate coordinate) {
-        outputGrid[coordinate.getX()][coordinate.getY()] = '0';
+    void replaceCharXWith0(int x, int y) {
+        outputGrid[x][y] = '0';
         displayOutputGrid();
     }
 
-    void replaceCharXWithf(Coordinate coordinate) {
-       outputGrid[coordinate.getX()][coordinate.getY()] = 'f';
+    void replaceCharXWithf(int x, int y) {
+        outputGrid[x][y] = 'f';
         displayOutputGrid();
 
     }
 
     char getOutputGridCoordinate(Coordinate coordinate) {
         return outputGrid[coordinate.getX()][coordinate.getY()];
+    }
+
+    void updateGrid(PlayerInput playerInput) {
+        switch (playerInput.getChoice()) {
+            case o:
+                if (referenceGrid[playerInput.getX()][playerInput.getY()] == 'm') {
+                    System.out.println("Game over. You stepped on a mine!");
+                    GameEngine.setHasFinished(true);
+                    break;
+                } else
+                    replaceCharXWith0(playerInput.getX(), playerInput.getY());
+                break;
+            case f:
+                replaceCharXWithf(playerInput.getX(), playerInput.getY());
+                break;
+        }
+        for (int x = 0; x < ROWS; x++) {
+            for (int y = 0; y < COLS; y++) {
+                if (outputGrid[x][y] == 'x') {
+
+                    GameEngine.setHasFinished(false);
+                    break;
+                }
+            }
+        }
     }
 }

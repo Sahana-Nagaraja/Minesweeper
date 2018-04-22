@@ -1,25 +1,32 @@
 public class GameEngine {
 
     private final String gridLayout;
-    private boolean hasFinished = false;
+    public static boolean hasFinished = false;
     public static int gridSize;
 
+    public static void setHasFinished(boolean hasFinished) {
+        GameEngine.hasFinished = hasFinished;
+    }
+
+    public static void setGridSize(int gridSize) {
+        GameEngine.gridSize = gridSize;
+    }
+    Grid grid;
+
     public GameEngine(String gridLayout) {
+        grid = new Grid(gridLayout);
         this.gridLayout = gridLayout;
-        this.gridSize = gridLayout.split(",").length;
+        gridSize = gridLayout.split(",").length;
+        GameEngine.setGridSize(gridSize);
     }
 
 
     public void play() {
         do {
-            System.out.println("Enter option : ");
+            System.out.println("\nEnter option : ");
             PlayerInput playerInput = new PlayerInput(new ConsoleInputReader().readSingleInput());
-            InputChoice choice = playerInput.getChoice();
-            int x = playerInput.getX();
-            int y = playerInput.getY();
-            hasFinished = true;
+            grid.updateGrid(playerInput);
         }
-
         while (!hasFinished);
     }
 }

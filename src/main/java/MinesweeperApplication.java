@@ -5,11 +5,7 @@ public class MinesweeperApplication {
 
     static void startGame() {
         System.out.print("Enter the minefield layout : ");
-        String in = new ConsoleInputReader().readSingleInput();
-        getInput(in);
-    }
-
-    private static void getInput(String gridLayout) {
+        String gridLayout = new ConsoleInputReader().readSingleInput();
         GameEngine gameEngine = new GameEngine(gridLayout);
         gameEngine.play();
     }
