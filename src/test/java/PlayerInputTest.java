@@ -1,12 +1,11 @@
 import org.junit.Ignore;
 import org.junit.Test;
-
 import java.io.ByteArrayInputStream;
 import static junit.framework.TestCase.assertEquals;
 
 public class PlayerInputTest {
     @Test
-    public void shouldAcceptChoiceOFromUser(){
+    public void shouldAcceptChoiceOFromUser() {
         System.setIn(new ByteArrayInputStream("o(0,0)".getBytes()));
         ConsoleInputReader consoleInputReader = new ConsoleInputReader();
 
@@ -17,7 +16,7 @@ public class PlayerInputTest {
 
     @Ignore
     @Test
-    public void shouldReturn0asX(){
+    public void shouldReturn0asX() {
         System.setIn(new ByteArrayInputStream("o(0,0)".getBytes()));
         ConsoleInputReader consoleInputReader = new ConsoleInputReader();
 
@@ -28,7 +27,7 @@ public class PlayerInputTest {
 
     @Ignore
     @Test
-    public void shouldReturn1asY(){
+    public void shouldReturn1asY() {
         System.setIn(new ByteArrayInputStream("o(0,1)".getBytes()));
         ConsoleInputReader consoleInputReader = new ConsoleInputReader();
 
