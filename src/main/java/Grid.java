@@ -33,23 +33,17 @@ public class Grid {
     }
 
     void replaceCharXWith0(Coordinate coordinate) {
-        int x = coordinate.getX();
-        int y = coordinate.getY();
-        outputGrid[x][y] = '0';
+        outputGrid[coordinate.getX()][coordinate.getY()] = '0';
         displayOutputGrid();
     }
 
     void replaceCharXWithf(Coordinate coordinate) {
-        int x = coordinate.getX();
-        int y = coordinate.getY();
-        outputGrid[x][y] = 'f';
+       outputGrid[coordinate.getX()][coordinate.getY()] = 'f';
         displayOutputGrid();
 
     }
 
     char getOutputGridCoordinate(Coordinate coordinate) {
-        int x = coordinate.getX();
-        int y = coordinate.getY();
-        return outputGrid[x][y];
+        return outputGrid[coordinate.getX()][coordinate.getY()];
     }
 }
