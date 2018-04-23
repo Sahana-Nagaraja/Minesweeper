@@ -1,4 +1,4 @@
-public class Coordinate {
+class Coordinate {
     private int x;
     private int y;
 
@@ -7,11 +7,11 @@ public class Coordinate {
         this.y = y;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 

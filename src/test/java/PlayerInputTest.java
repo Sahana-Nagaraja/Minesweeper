@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import static junit.framework.TestCase.assertEquals;
 
 public class PlayerInputTest {
+
     @Test
     public void shouldAcceptChoiceOFromUser() {
         System.setIn(new ByteArrayInputStream("o(0,0)".getBytes()));
@@ -14,7 +15,7 @@ public class PlayerInputTest {
         assertEquals(InputChoice.o, playerInput.getChoice());
     }
 
-    @Ignore
+
     @Test
     public void shouldReturn0asX() {
         System.setIn(new ByteArrayInputStream("o(0,0)".getBytes()));
@@ -25,7 +26,7 @@ public class PlayerInputTest {
         assertEquals(0, playerInput.getX());
     }
 
-    @Ignore
+
     @Test
     public void shouldReturn1asY() {
         System.setIn(new ByteArrayInputStream("o(0,1)".getBytes()));

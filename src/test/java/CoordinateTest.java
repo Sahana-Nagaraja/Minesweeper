@@ -11,11 +11,4 @@ public class CoordinateTest {
         assertEquals(2,coordinate.getY());
 
     }
-
-    @Test
-    public void shouldReplaceGridBy0forInputChoiceO(){
-        Coordinate coordinate = new Coordinate(1,1);
-        coordinate.updateGrid(InputChoice.f);
-    }
-
 }
