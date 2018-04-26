@@ -1,28 +1,38 @@
 class GameEngine {
 
-    private final String gridLayout;
-    boolean hasFinished = false;
-    int gridSize;
+    private Grid grid;
+    private ConsoleOutput consoleOutput = new ConsoleOutput();
 
-    void setHasFinished(boolean hasFinished) {
-        this.hasFinished = hasFinished;
+     private void setHasCompleted() {
+        this.hasCompleted = true;
     }
 
-    private Grid grid;
+    boolean getHasCompleted() {
+        return hasCompleted;
+    }
+
+    private boolean hasCompleted = false;
 
     GameEngine(String gridLayout) {
-        grid = new Grid(gridLayout);
-        this.gridLayout = gridLayout;
-        gridSize = gridLayout.split(",").length;
+        grid = new Grid(gridLayout, this);
     }
 
-
     void play() {
-        do {
-            System.out.println("\nEnter option : ");
+        while (!hasCompleted) {
+            consoleOutput.display("\nEnter option : ");
             PlayerInput playerInput = new PlayerInput(new ConsoleInputReader().readSingleInput());
             grid.updateGrid(playerInput);
         }
-        while (!hasFinished);
+    }
+
+    void hasFinished(String status) {
+        if (status.equals("mine")) {
+            consoleOutput.display("Game over. You stepped on mine.");
+            setHasCompleted();
+        } else {
+            consoleOutput.display("You won!");
+            setHasCompleted();
+        }
+
     }
 }

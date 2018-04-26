@@ -17,4 +17,19 @@ public class GameEngineTest {
         assertEquals("xxx\nxxx\nxxx\n\nEnter option : \n", outStream.toString());
     }
 
+    @Test
+    public void shouldChangeHasCompletedToTrueWhenStatusIsMine(){
+        GameEngine gameEngine = new GameEngine("xxm,xmx,xxx");
+        gameEngine.hasFinished("mine");
+
+        assertEquals(true,gameEngine.getHasCompleted());
+    }
+    @Test
+    public void shouldChangeHasCompletedToTrueWhenStatusIsClear(){
+        GameEngine gameEngine = new GameEngine("xxm,xmx,xxx");
+        gameEngine.hasFinished("clear");
+
+        assertEquals(true,gameEngine.getHasCompleted());
+    }
+
 }

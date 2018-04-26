@@ -1,20 +1,20 @@
-public class Grid {
+class Grid {
 
-    private final int ROWS = 3;
-    private final int COLS = 3;
+    private static final int ROWS = 3;
+    private static final int COLS = 3;
 
     private final Character[][] referenceGrid = new Character[ROWS][COLS];
-    private final String gridLayout;
+    private final GameEngine gameEngine;
     private Character[][] outputGrid = new Character[ROWS][COLS];
-    ConsoleOutput consoleOutput = new ConsoleOutput();
+    private ConsoleOutput consoleOutput = new ConsoleOutput();
 
-    Grid(String gridLayout) {
-        int k = 0;
-        this.gridLayout = gridLayout;
+    Grid(String gridLayout, GameEngine gameEngine) {
+        int count = 0;
+        this.gameEngine = gameEngine;
         char[] charArr = gridLayout.replace(",", "").replace("\"", "").trim().toCharArray();
 
         for (int x = 0; x < ROWS; x++) {
-            k = loopReferenceCols(k, charArr, x);
+            count = loopReferenceCols(count, charArr, x);
         }
         for (int x = 0; x < ROWS; x++) {
             loopOutputCols(x);
@@ -34,15 +34,15 @@ public class Grid {
         return k;
     }
 
-    public String displayOutputGrid() {
-        String result = "";
+    String displayOutputGrid() {
+        StringBuilder result = new StringBuilder();
         for (int x = 0; x < ROWS; x++) {
             for (int y = 0; y < COLS; y++) {
-                result += outputGrid[x][y];
+                result.append(outputGrid[x][y]);
             }
-            result += "\n";
+            result.append("\n");
         }
-        return result;
+        return result.toString();
     }
 
     char getOutputGridCoordinate(Coordinate coordinate) {
@@ -61,13 +61,10 @@ public class Grid {
 
     void updateGrid(PlayerInput playerInput) {
 
-        GameEngine gameEngine = new GameEngine(gridLayout);
         switch (playerInput.getChoice()) {
             case o:
                 if (referenceGrid[playerInput.getX()][playerInput.getY()] == 'm') {
-                    System.out.println("Game over. You stepped on a mine!");
-                    gameEngine.setHasFinished(true);
-                    break;
+                    gameEngine.hasFinished("mine");
                 } else
                     replaceCharXWith0(playerInput.getX(), playerInput.getY());
                 break;
@@ -75,19 +72,33 @@ public class Grid {
                 replaceCharXWithf(playerInput.getX(), playerInput.getY());
                 break;
         }
-
-        for (int x = 0; x < ROWS; x++) {
-            if (loopCols(gameEngine, outputGrid[x])) return;
+        int xCount = getXCount();
+        int flagCount = getFlagCount();
+        int mineCount = getMineCount();
+        if((flagCount == mineCount)&&(xCount==0)){
+            gameEngine.hasFinished("clear");
         }
     }
 
-    private boolean loopCols(GameEngine gameEngine, Character[] characters) {
-        for (int y = 0; y < COLS; y++) {
-            if (characters[y] == 'x') {
-                gameEngine.setHasFinished(false);
-                return true;
+    private int getFlagCount(){
+        return getCount(outputGrid, 'f');
+    }
+
+    private int getMineCount(){
+        return getCount(referenceGrid, 'm');
+    }
+
+    private int getXCount(){
+        return getCount(outputGrid,'x');
+    }
+
+    private int getCount(Character[][] characters, Character c){
+        int count = 0;
+        for(int i = 0; i < ROWS; i++){
+            for(int j = 0; j < COLS; j++){
+                if(characters[i][j] == c) count++;
             }
         }
-        return false;
+        return count;
     }
 }

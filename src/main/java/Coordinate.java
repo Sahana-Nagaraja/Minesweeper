@@ -14,7 +14,4 @@ class Coordinate {
     int getY() {
         return y;
     }
-
-
-
 }
